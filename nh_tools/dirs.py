@@ -1,8 +1,6 @@
 from os import getenv
 from pathlib import Path
 
-from nh_tool.file import open_file
-
 
 def get_path_from_env(var: str, default: Path):
     path = getenv(var)
@@ -26,7 +24,7 @@ def get_data_path():
 
 
 def get_path_from_user_dirs(var: str, default: Path):
-    data = open_file(get_config_path() / 'user-dirs.dirs')
+    data = (get_config_path() / 'user-dirs.dirs').read_text()
     user_dirs = {}
     for line in [line for line in data.split('\n') if not line.startswith('#') and line]:
         key, value = line.split('=')

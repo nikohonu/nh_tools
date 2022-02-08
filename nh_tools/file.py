@@ -1,26 +1,16 @@
+from json import dump
+from json import load
 from pathlib import Path
-from json import dump, load
 
 
-def open_file(path: Path):
-    with open(path) as f:
-        data = f.read()
-    return data
-
-
-def save_file(path: Path, data):
-    with open(path, 'w') as f:
-        f.write(data)
-
-
-def open_json(path: Path):
+def open_json(path: Path, default={}):
     if path.exists():
-        with open(path) as f:
+        with path.open() as f:
             return load(f)
     else:
-        return {}
+        return default
 
 
 def save_json(path: Path, data):
-    with open(path, 'w') as f:
+    with path.open('w') as f:
         dump(data, f, indent=4)
